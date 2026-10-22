@@ -1,0 +1,67 @@
+1. Quantas variáveis de entrada e quantas classes existem?
+784 (28x28) variáveis de entrada e 10 classes
+
+2. O que representa cada variável de entrada neste conjunto de dados?
+Um pixel da imagem
+
+3. Por que um problema com essa quantidade de variáveis e classes pode ser interessante para avaliar diferentes arquiteturas e hiperparâmetros de uma RN?
+Porque essa quantidade torna o problema complexo o suficiente
+
+4. Quantas camadas ocultas possui a rede e quantos neurônios existem nessa camada?
+1 camada oculta com 128 neurônios
+
+5. Qual função de ativação foi utilizada na camada oculta? Qual é seu papel?
+ReLU. Tem como papel introduzir não linearidade
+
+6. Por que a camada de saída possui 10 neurônios e utiliza a função Softmax?
+Porque a camada de saída precisa ter o número de classes e Softmax é utilizada para problemas de classificação multiclasse.
+
+7. Qual função de perda foi escolhida e por que ela é adequada para este problema?
+sparse_categorical_crossentropy. É utilizada para classificação multiclasse.
+
+8. Qual otimizador e qual taxa de aprendizado foram definidos?
+Adam e 0.001
+
+9. O que acontece se alterarmos `shape=(784,)` para outro valor? Por quê?
+Acontecerá um erro (shape mismatch) porque a camada de entrada precisa ter a mesma quantidade de variáveis.
+
+10. Quantos parâmetros treináveis possui a rede? Como esse valor é calculado a partir da quantidade de entradas, neurônios, pesos e biases?
+101.770
+
+Camada 1: 784 x 128 = 100.352 + 128 bias = 100.480
+Camada 2: 128 x 10  = 1.280 + 10 bias = 1.290
+100.480 + 1.290 = 101.770
+
+
+11. Qual tamanho de lote (batch size) foi utilizado?
+128
+
+12. Considerando a quantidade de instâncias utilizadas no treinamento, aproximadamente quantas atualizações dos parâmetros ocorrem em cada época?
+60.000 / 128 = 468 por época
+
+13. Quantas épocas foram utilizadas e o que uma época representa neste treinamento?
+20. Representa uma passagem completa do conjunto de dados de treino pela rede.
+
+14. Qual é o papel do conjunto de validação utilizado durante o treinamento?
+Tem como papel detectar overfitting ou underfitting baseado na capacidade de generalização do modelo.
+
+15. Como os valores de loss e accuracy se comportaram ao longo das épocas?
+Em treinamento loss diminuiu (0.5692 -> 0.1965) e acurácia aumentou (0.8048 -> 0.9296)
+Em validação loss diminuiu, mas começou a subir após a décima época, já a acurácia se estabilizou em cerca de 87%
+
+16. O que representam as curvas de perda nos dados de treinamento e de validação?
+Indica o erro cometido pelo modelo ao longo do tempo
+
+17. Por que a perda nos dados de treinamento continua diminuindo ao longo das épocas?
+Porque o algoritmo continua ajustando os pesos para diminuir o erro
+
+18. A partir de aproximadamente qual época a perda de validação deixa de apresentar melhora significativa?
+Décima época porque é onde atinge o valor mínimo e depois passa a oscilar e subir
+
+19. Por que o modelo classificou incorretamente a imagem da bota como Bag?
+Redimensionamente inadequado para 28x28 e imagem da bota (cores e fundo) muito diferente do catálogo utilizado no treinamento 
+
+20. Como o modelo pode apresentar probabilidade de 100% e ainda assim estar errado?
+O modelo foi treinado com um padrão de imagens e quando recebe uma imagem muito diferente pode escolher uma classe errada e mesmo assim achar que esta certo,
+atribuindo uma probabilidade muito alta a ela.
+
